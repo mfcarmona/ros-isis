@@ -1,0 +1,20 @@
+<!-- 
+Objetivo:    Filtrar puntos de laser que chocan contra la estructura de carmen
+Descripcion: Filtra los puntos de ambos laser como uno solo ... el frontal... no me gusta ...
+Estado:      Funcional. 
+-->
+
+
+<launch>
+
+
+<!-- ...............  filtrado de puntos de los lasers  .................... -->
+<!--   Eliminar puntos que chocan con CARMEN misma                           -->
+<!-- entrada:"scan" salida:"scan_filtered" -->
+<node name="laser_filter_front" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <remap from="/scan" to="base_scan_raw" />
+    <remap from="/scan_filtered" to="base_scan" />
+    <rosparam command="load" file="/home/mfcarmona/ros/isis/CARMEN/launch/hokuyo/hokuyo_front_filter.yaml" />
+</node >
+
+</launch>

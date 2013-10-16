@@ -1,0 +1,43 @@
+<!-- 
+
+Objetivo:    probar algoritmos gmapping en CARMEN simulada
+Descripcion: Version basada en stageros para CASA
+Estado:      Funciona! DESCARTADO!!!!! 
+		- gmapping está mas o menos ajustado (en giros no va mu fino, pero se recupera)
+		- planificador no va nada bien, no tiene bien puestas las dimensiones ...
+
+		- aproximacion de lasers juntos no funciona: hay que filtrar puntos de laser, distinguiendo fuente
+
+Basado en  : move_base_gmapping....
+
+Topics generados por stageros:
+/base_pose_ground_truth
+/base_scan
+/clock
+/cmd_vel
+/odom
+/tf
+
+Topics (de stageros) consumidos por el resto del sistema:
+/base_scan
+/clock
+/cmd_vel
+/odom
+/tf
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/stage/stageCARMEN.launch"/>  
+
+-->
+
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/gmapping/planner_config/move_base.xml"/>
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/stage/stageCARMEN.launch"/>  
+ 
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/gmapping/planner_config/slam_gmapping.xml"/>  
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/mfcarmona/ros/isis/CARMEN/launch/gmapping/stageCARMENSLAM.vcg" />
+</launch>

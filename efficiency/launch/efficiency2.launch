@@ -1,0 +1,47 @@
+<!--
+Objetivo:  Comprobar que el servicio de efficiencias calcula correctamente las efficiencias.
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:   FUNCIONA!!!
+  	  Los efficiency2 utilizan pointcloud en lugar de laserscan (más generico) uso el costmap para
+          unir los datos de ambos laser, filtrarlos y usarlos en el cálculo de eficiencias.
+-->
+
+
+<launch>
+  <master auto="start"/>
+
+<!-- fuentes de datos:******************************************************************* -->
+
+<!-- scans: /base_link/global_scan_0
+	    /base_link/global_scan_1
+     pos : /odom  
+-->
+  <include file="$(find carmen)/launch/stage/stageCARMEN_separated.launch"/>  
+
+
+  <!-- obstacles: costmap_node/costmap/obstacles -->
+  <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+    <rosparam file="$(find efficiency)/launch/costmap2d/costmap2d_params.yaml" command="load" ns="costmap" />
+  </node>
+
+<!-- command: command -->
+  <include file="$(find control_joy)/launch/test.launch"/>
+
+<!-- target:  command -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find efficiency)/launch/costmap2d/costmapCARMEN.rviz" >
+</node>
+
+
+<!--************************************************************************************* -->
+
+<!-- servidor de eficiencia  -->
+<include file="$(find efficiency)/launch/efficiency_server2.launch"/>  
+
+
+<!--  clientes de eficiencia  -->
+<!-- <include file="$(find efficiency)/launch/efficiency_subscriber.launch"/> -->
+<include file="$(find efficiency)/launch/efficiency_subscriber2.launch"/>    
+
+
+</launch>

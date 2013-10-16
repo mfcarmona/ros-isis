@@ -1,0 +1,6 @@
+*~
+*.pyc
+.project
+#/lib64
+/bin
+/build/stage

@@ -1,0 +1,31 @@
+<!-- 
+
+Como no me funciona el move_carmen_amcl de la carpeta navigation, voy a cambiar poco a poco move_base_amcl_2.5cm.launch 
+
+Estado: voy a poner a CARMEN en el mapa willow garage ... a ver q tal
+funciona!!!
+
+ -->
+
+
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+  <include file="./move_base.xml"/>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/mfcarmona/ros/isis/CARMEN/launch/soyTonto/willow-full-0.025.pgm 0.025" />
+
+
+<!-- 
+  <node pkg="stage" type="stageros" name="stageros" args="/home/mfcarmona/ros/isis/CARMEN/launch/soyTonto/willow-pr2-2.5cm.world" respawn="false" >
+    <param name="base_watchdog_timeout" value="0.2"/>
+  </node>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/mfcarmona/ros/isis/CARMEN/bags/map.pgm 0.05" />
+-->
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/soyTonto/stageCARMEN_separated.launch"/>  
+
+  <include file="./amcl_node.xml"/>  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/mfcarmona/ros/isis/CARMEN/launch/soyTonto/single_robot.vcg" />
+</launch>

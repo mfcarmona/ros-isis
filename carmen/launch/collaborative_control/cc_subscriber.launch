@@ -1,0 +1,22 @@
+<!--
+Objetivo:  Comprobar que el servicio de control compartido calcula correctamente el comando compartido
+
+
+Estado:  probando
+  	
+-->
+
+
+<launch>
+
+<!--  cliente de control compartido  -->
+<node name="cc_client" pkg="collaborative_control" output="screen" type="collaborative_control_subscriber" >
+      <remap from="obstacles" to="/move_base_node/local_costmap/obstacles" />
+      <remap from="target" to="/move_base_simple/goal" />
+      <remap from="pos" to="/odom" />
+      <remap from="/cc_comand" to="/cc_command" />
+</node>
+
+
+
+</launch>

@@ -1,0 +1,31 @@
+<!--
+Objetivo:  Comprobar que el servicio de efficiencias calcula correctamente las efficiencias.
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:    FUNCIONA!!
+  	
+-->
+
+
+<launch>
+
+<!-- servidor de eficiencia  -->
+<node name="efficiency_server" pkg="efficiency"  output="screen"  type="Efficiency_s_server2">
+
+<!-- parametros de eficiencia  -->
+
+  <param name="effic_cte_exp_smoothness" value="0.5" type="double"/>
+  <param name="effic_cte_exp_safety" value="0.5" type="double"/>
+  <param name="effic_cte_exp_directness" value="0.5" type="double"/>
+
+  <param name="effic_cte_weigth_smoothness" value="0.33333333" type="double"/>
+  <param name="effic_cte_weigth_safety" value="0.33333333" type="double"/>
+  <param name="effic_cte_weigth_directness" value="0.33333333" type="double"/>
+
+  <param name="MAX_DIST_SAFETY" value="4.096" type="double"/>
+
+</node>
+
+
+
+</launch>

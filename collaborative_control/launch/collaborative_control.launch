@@ -1,0 +1,66 @@
+<!--
+Objetivo:  Comprobar que el servicio de control compartido funciona correctamente
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:   
+          FALTA COMANDO ROBOTICO para un autentico control colaborativo....  	
+-->
+
+
+<launch>
+  <master auto="start"/>
+
+<!-- fuentes de datos:******************************************************************* -->
+
+<!-- scans: /base_link/global_scan_0
+	    /base_link/global_scan_1
+     pos : /odom  
+-->
+  <include file="$(find carmen)/launch/stage/stageCARMEN_separated.launch"/>  
+
+
+  <!-- obstacles: costmap_node/costmap/obstacles -->
+  <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+    <rosparam file="$(find efficiency)/launch/costmap2d/costmap2d_params.yaml" command="load" ns="costmap" />
+  </node>
+
+<!-- user_command --> 
+  <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="a_teleop_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.3" />
+  </node>
+
+   <!-- Axes -->
+  <param name="trans_vel_axis" value="1" type="int"/>
+  <param name="rot_vel_axis" value="0" type="int"/>
+  <param name="trans_scale" value="1" type="double"/>
+  <param name="rot_scale" value="1" type="double"/>
+  <param name="auto_send" value="true" type="boolean"/>
+
+  <node pkg="control_joy" type="teleop_joy" name="a_teleopCARMEN">
+   <remap from="cmd_vel" to="user_command" />
+  </node>
+
+<!-- target:  command -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find efficiency)/launch/costmap2d/costmapCARMEN.rviz" >
+</node>
+
+
+<!--************************************************************************************* -->
+
+<!-- servidor de control compartido  -->
+<include file="$(find collaborative_control)/launch/cc_server.launch"/>  
+
+
+<!--  clientes de control compartido   -->
+<include file="$(find collaborative_control)/launch/cc_subscriber.launch"/> 
+
+
+<!--************************************************************************************* -->
+
+<!-- servidor de eficiencia  -->
+<include file="$(find efficiency)/launch/efficiency_server2.launch"/>  
+
+</launch>

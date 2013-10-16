@@ -1,0 +1,40 @@
+<!--
+Objetivo:  Comprobar que el servicio de efficiencias calcula correctamente las efficiencias.
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:    DESCARTADO!! usaba un artificio para unir lasers. No es necesario. 
+                        Podemos usar el costmap para unirlo todo
+  	
+-->
+
+
+<launch>
+  <master auto="start"/>
+
+<!-- fuentes de datos:******************************************************************* -->
+
+<!-- scan: /base_link/global_scan
+     pos : /odom  
+-->
+  <include file="$(find carmen)/launch/stage/stageCARMEN.launch"/>  
+
+<!-- command: command -->
+  <include file="$(find control_joy)/launch/test.launch"/>
+
+<!-- target:  command -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find carmen)/launch/stage/stageCARMEN.rviz" >
+
+</node>
+
+
+<!--************************************************************************************* -->
+
+<!-- servidor de eficiencia  -->
+<include file="$(find efficiency)/launch/efficiency_server.launch"/>  
+
+
+<!--  cliente de eficiencia  -->
+<include file="$(find efficiency)/launch/efficiency_subscriber.launch"/>  
+
+
+</launch>

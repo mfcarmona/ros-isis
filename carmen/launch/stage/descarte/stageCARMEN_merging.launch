@@ -1,0 +1,38 @@
+<!-- 
+
+Objetivo:    Simular CARMEN para montar pila de navegacion antes de montarlo en el real
+Descripcion: Version basada en new stageros. Deberia ser intercambiable con realCARMEN
+	     Esta version se publican los lasers por separado
+Estado:      Funciona: pulir escalas ...
+
+
+
+-->
+
+<launch>
+
+
+<!-- ***************  STAGEROS  ********************************** -->
+<node name="carmen_stage" pkg="new_stage_isis" type="new_stage_isis"
+		args="/home/mfcarmona/workspace/svnTemp/trunk/RobotServer/CARMEN.Player.cpp/stage-test/PTA-limpio.world">
+<param name="base_watchdog_timeout" value="0.2"/>
+<remap from="laser_scan_0" to="/base_scan_0_raw" />
+<remap from="laser_scan_1" to="/base_scan_1_raw" />
+
+</node>
+
+<!-- Stageros ya me proporciona los dos lasers, y sus respectivas transformaciones, solo me resta filtrar puntos del laser -->  
+
+<!-- ***************  LASER FILTERS ********************************** -->  
+
+<include file="/home/mfcarmona/ros/isis/CARMEN/launch/hokuyo/laserFilters.launch" />
+
+
+</launch>
+
+
+
+
+
+
+

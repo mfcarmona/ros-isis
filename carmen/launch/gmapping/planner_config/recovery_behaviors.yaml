@@ -1,0 +1,36 @@
+recovery_behaviors:
+  - name: 'super_conservative_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+  - name: 'conservative_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+  - name: 'aggressive_reset'
+    type: 'clear_costmap_recovery/ClearCostmapRecovery'
+  - name: 'rotate_recovery_beh'
+    type: 'rotate_recovery/RotateRecovery'
+#  Este comportamiento solo sirve con dwa o "local planners that allow maximum speeds to be set via dynamic_reconfigure"
+#  - name: 'move_slow_and_clear'
+#    type: 'move_slow_and_clear/MoveSlowAndClear'
+
+super_conservative_reset:
+  reset_distance: 3.0
+
+conservative_reset:
+  reset_distance: 2.0
+
+aggressive_reset:
+  reset_distance: 1.84
+
+#move_slow_and_clear:
+#  clearing_distance: 0.5
+#  limited_trans_speed: 0.25
+#  limited_rot_speed: 0.45
+#  limited_distance: 0.3
+
+rotate_recovery_beh:
+   sim_granularity: 0.01 # (double, default: 0.017) (rad) Checking if an in-place rotation is safe. Defaults to 1 degree. 
+   frequency: 60 # (double, default: 20.0) The frequency in HZ at which to send velocity commands to the mobile base.
+   # these override TrajectoryPlannerROS values
+   yaw_goal_tolerance:          1   #(double, default: 0.05) The tolerance in radians for the controller in yaw/rotation when achieving its goal 
+   acc_lim_th:                  3.2 #(double, default: 3.2) The rotational acceleration limit of the robot in radians/sec^2 
+   max_rotational_vel:          0.3 #(double, default: 1.0) The maximum rotational velocity allowed for the base in radians/sec 
+   min_in_place_rotational_vel: 0.2 #(double, default: 0.4) The minimum rotational velocity allowed for the base while performing in-place rotations in radians/sec

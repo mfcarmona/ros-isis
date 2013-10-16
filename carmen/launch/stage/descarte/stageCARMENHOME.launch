@@ -1,0 +1,39 @@
+<!-- 
+
+Objetivo:    Simular CARMEN para montar pila de navegacion antes de montarlo en el real
+Descripcion: Version basada en stageros para CASA
+Estado:       Puliendo escalas 
+
+
+opciones mapas
+	args="/home/distaur/ros/isis/CARMEN/launch/carmen-erratic.world">
+
+-->
+
+<launch>
+
+
+<!-- ***************  STAGEROS  ********************************** -->
+<node name="carmen_stage" pkg="stage" type="newstageros"
+
+	args="/home/distaur/.fakeHome/Dropbox/tmp/robotservers/RobotServer/CARMEN.Player.cpp/stage-test/PTA-limpio.world">
+<remap from="/laser_scan" to="scan" />
+<remap from="/base_laser_link_0" to="base_laser_front" />
+<remap from="/base_laser_link_1" to="base_laser_rear" />
+</node>
+
+
+
+
+</launch>
+
+
+
+
+<!-- ...............  filtrado de puntos de los lasers  .................... -->
+<!-- entrada:"scan" salida:"scan_filtered" --> 
+<!-- node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <rosparam command="load" file="./hokuyos_config.yaml" />
+</node -->
+
+

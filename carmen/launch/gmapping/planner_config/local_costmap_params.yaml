@@ -1,0 +1,49 @@
+#Independent settings for the local planner's costmap. Detailed descriptions of these parameters can be found at http://www.ros.org/wiki/costmap_2d
+
+local_costmap:
+# ------------------------------------
+#    Map management parameters        |
+# ------------------------------------
+  static_map:     false       # use the static map to initialize the costmap. If the rolling_window parameter is set to true, this parameter must be set to false. 
+  rolling_window: true      # use a rolling window version of the costmap. If the static_map parameter is set to true, this parameter must be set to false. 
+  unknown_cost_value: 0      # If the costmap is not tracking unknown space, costs of this will be considered occupied. 0 also results in this parameter being unused. 
+  publish_voxel_map: true   # publish the underlying voxel grid for visualization purposes. 
+  lethal_cost_threshold: 100 # Threshold value at which to consider a cost lethal when reading in a map from the map server. 
+  #map_topic: static_map      # Topic that the costmap subscribes to for the static map. 
+
+
+  #Set the global and robot frames for the costmap
+  global_frame: odom
+  robot_base_frame: base_link
+
+  #Set the update and publish frequency of the costmap
+  update_frequency: 5.0
+  publish_frequency: 2.0
+
+# -----------------------------------------------------|
+#  Parameters  when "static_map" is set back to false. |
+# -----------------------------------------------------
+  #width (int, default: 10) The width of the map in meters. 
+  #height (int, default: 10) The height of the map in meters. 
+  #resolution (double, default: 0.05) The resolution of the map in meters/cell. 
+  #origin_x (double, default: 0.0) The x origin of the map in the global frame in meters. 
+  #origin_y (double, default: 0.0) The y origin of the map in the global frame in meters. 
+
+# ------------------------------------
+#        Map type parameters          |
+# ------------------------------------
+  map_type: costmap # "voxel" or "costmap" : a 3D-view of the world vs. a 2D-view of the world. 
+
+# -------------------------------------
+#  Parameters for map_type == "voxel" |
+# -------------------------------------
+#origin_z (double, default: 0.0) The z origin of the map in meters. 
+#z_resolution (double, default: 0.2) The z resolution of the map in meters/cell. 
+#z_voxels (int, default: 10) The number of voxels to in each vertical column, the height of the grid is z_resolution * z_voxels. 
+#unknown_threshold (int, default: ~<name>/z_voxels) The number of unknown cells allowed in a column considered to be "known" 
+#mark_threshold (int, default: 0) The maximum number of marked cells allowed in a column considered to be "free". 
+
+# ---------------------------------------
+#  Parameters for map_type == "costmap" |
+# ---------------------------------------
+  track_unknown_space: false # Specifies whether or not to track what space in the costmap is unknown, meaning that no observation about a cell has been seen from any sensor source.

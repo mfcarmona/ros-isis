@@ -1,0 +1,10 @@
+CBRServer
+---------
+Servidor de CBR en Java. Está basado en la revisión 5 del codigo de repositorio de ISIS de CBR.
+Además incluye las utilidades para convertir trazas txt CARMEN a cbr-txt y de cbr-txt a cbr-bin en la carpeta probe2cbr.
+
+CBRClient
+---------
+- cbr_clientC: Cliente que se subscribe al CBR de java y obtiene los prototipos. Mantiene un socket para reenviar los datos obtenidos.
+- cbrClientDLA: Módulo DLA que se conecta a cbr_clientC para enviarle los datos de laser y objetivos. Recibe el caso que cbr_clientC obtiene del servidor.
+

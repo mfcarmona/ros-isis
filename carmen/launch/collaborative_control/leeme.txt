@@ -1,0 +1,2 @@
+añadido move_base (y amcl) a control compartido
+ver archivo control_compartido.launch para status

@@ -1,0 +1,11 @@
+<launch>
+
+
+
+  <node pkg="map_server" type="map_server" respawn="false" name="map_server" args="/home/mfcarmona/ros/isis/CARMEN/launch/gmapping/map.yaml" output="screen">
+  <remap from="map" to="static_map" />
+
+    
+  </node>
+
+</launch>

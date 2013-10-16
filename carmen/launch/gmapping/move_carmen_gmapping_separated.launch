@@ -1,0 +1,50 @@
+<!-- 
+
+Objetivo:    probar algoritmos gmapping en CARMEN simulada
+Descripcion: Version basada en stageros para CASA
+Estado:      Funciona! 
+		- gmapping está mas o menos ajustado (en giros no va mu fino, pero se recupera)
+                - hay que editar los comportamientos de move_base (lo de que gire no es muy adecuado para la silla de ruedas)
+Basado en  : move_base_gmapping....
+
+
+// esto carga el mapa grabado ...
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/gmapping/map_server.xml"/>
+-->
+
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+	
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/stage/stageCARMEN_separated.launch"/>  
+<!--  CARMEN
+Publications: 
+ * /tf [tf/tfMessage]
+ * /odom [nav_msgs/Odometry]
+ * /base_scan [sensor_msgs/LaserScan]
+ * /base_pose_ground_truth [nav_msgs/Odometry]
+Subscriptions: 
+ * /cmd_vel [geometry_msgs/Twist]
+ -->
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/gmapping/planner_config/slam_gmapping.xml"/>  
+<!--  GMAPPING
+Publications: 
+ * /map_metadata [nav_msgs/MapMetaData]
+ * /tf [tf/tfMessage]
+ * /map [nav_msgs/OccupancyGrid]
+ * /slam_gmapping/entropy [std_msgs/Float64]
+Subscriptions: 
+ * /base_scan [sensor_msgs/LaserScan]
+ * /tf [tf/tfMessage]
+ -->
+
+
+<!--  AMCL
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/amcl_diff.launch" />
+ -->
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/gmapping/planner_config/move_base.xml"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/mfcarmona/ros/isis/CARMEN/launch/gmapping/stageCARMENSLAM.vcg" />
+</launch>

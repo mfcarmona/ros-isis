@@ -1,0 +1,50 @@
+# Desc: Stage sample world file for controlling  CARMEN
+#        Based upon simple.world from Vaughan
+# Author:  Manuel Fdez.
+
+
+include "CARMEN.inc"
+include "map.inc"
+include "hokuyo.inc"
+include "origen.inc"
+
+# time to pause (in GUI mode) or quit (in headless mode (-g)) the simulation
+quit_time 3600 # 1 hour of simulated time
+
+paused 1
+
+resolution 0.02
+
+# configure the GUI window
+window
+(
+  size [ 900 700 ] 
+  scale 70  
+  center [ 3.5 4.5 ]
+  rotate [ 0  0 ]
+  			
+  show_data 1              # 1=on 0=off
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "agevole"
+  size [7 7 2.00]
+  scale 10
+#  pose [0 0 0 0]
+ pose [5 5 0 0]
+  bitmap "bitmaps/agevole.png"
+)
+
+
+carmen_wheelchair
+(		  
+  # can refer to the robot by this name
+  name "carmen"
+  pose [ 2.5 6.66 0 0 ] 
+ 
+)
+
+
+

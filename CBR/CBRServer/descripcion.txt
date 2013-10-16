@@ -1,0 +1,14 @@
+CBRServer
+---------
+Versión actual de servidor CBR (java).
+
+probe2cbr
+---------
+Scripts para convertir los probes (txt) en cbr (txt) (probe2cbr, hecho en matlab) y el script para convertir de cbr (txt) a cbr (bin) (CBRCompiler.java).
+
+Para ver un ejemplo de compilación completa de probe txt a cbr binario ejecutar: exeSampleCompilerCBR.sh 
+
+NOTA: matlab tiene que estar en el path para ejecutarse
+
+Si quieres verlo paso a paso, llama al script matlab exe_sample.m o directamente a probe2cbr probe.txt cbr.txt. 
+Tras esto: java CBRCompiler fichero_descriptor_de_cbr fichero_datos_cbr_en_txt fichero_cbr_binario

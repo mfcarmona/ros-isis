@@ -1,0 +1,27 @@
+<!-- 
+
+Objetivo:    Simular CARMEN para montar pila de navegacion antes de montarlo en el real
+Descripcion: Version basada en new stageros. Deberia ser intercambiable con realCARMEN
+             Los lasers van en topicos independientes para poder filtrarse de manera adecuada.
+             Los scans filtrados se unen en un solo topico que se vuelca a un ensamblador de "nubes"
+             Esa nube se reconvierte a un scan mayor mediante el nodo de duallaser.
+	     Y de aqui a las capas superiores!
+
+Estado:       REVISAR!!!!!    Funciona: pulir escalas ...
+
+-->
+
+<launch>
+<include file="$(find carmen)/launch/stage/stageCARMEN_separated.launch"/> 
+
+
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find carmen)/launch/stage/stageCARMEN.rviz" />
+
+</launch>
+
+
+
+
+
+
+

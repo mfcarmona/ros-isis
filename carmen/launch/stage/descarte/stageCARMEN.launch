@@ -1,0 +1,75 @@
+<!-- 
+
+Objetivo:    Simular CARMEN para montar pila de navegacion antes de montarlo en el real
+Descripcion: Version basada en new stageros. Deberia ser intercambiable con realCARMEN
+             Los lasers van en topicos independientes para poder filtrarse de manera adecuada.
+             Los scans filtrados se unen en un solo topico que se vuelca a un ensamblador de "nubes"
+             Esa nube se reconvierte a un scan mayor mediante el nodo de duallaser.
+	     Y de aqui a las capas superiores!
+
+Estado:       OBSOLETO. La aproximación del laser de 360 grados es innecesaria
+              costmap admite la entrada de varios lasers y los fusiona ella misma
+
+-->
+
+<launch>
+
+
+<!-- ***************  STAGEROS  ********************************** -->
+<node name="carmen_stage" pkg="rostage_isis" type="rostage_isis"
+		args="$(find rostage_isis)/world/agevole.world">
+<param name="base_watchdog_timeout" value="0.2"/>
+<remap from="laser_scan_0" to="/base_link/base_scan_0_raw" />
+<remap from="laser_scan_1" to="/base_link/base_scan_1_raw" />
+
+</node>
+
+<!-- Stageros ya me proporciona los dos lasers, y sus respectivas transformaciones,
+ solo me resta filtrar puntos del laser para quitar la sombra de la silla
+ En una silla real tendria que proporcionar las transformaciones con cuidadin ...-->  
+
+
+<!-- ***************  LASER FILTERS ********************************** -->  
+<!--   Eliminar puntos que chocan con CARMEN misma                           -->
+<!-- entrada:"scan" salida:"scan_filtered" -->
+<node name="laser_filter_front" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <remap from="/scan" to="/base_link/base_scan_0_raw" />
+    <remap from="/scan_filtered" to="/base_link/base_scan" />
+    <rosparam command="load" file="$(find carmen)/launch/hokuyo/hokuyo_front_filter.yaml" />
+</node >
+
+<!-- entrada:"scan" salida:"scan_filtered" -->
+<node name="laser_filter_rear" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <remap from="/scan" to="/base_link/base_scan_1_raw" />
+    <remap from="/scan_filtered" to="/base_link/base_scan" />
+    <rosparam command="load" file="$(find carmen)/launch/hokuyo/hokuyo_rear_filter.yaml" />
+</node >
+<!-- *************** FIN LASER FILTERS ********************************** -->  
+
+
+<!-- ahora convertimos ambos lasers en una nube de puntos -->
+<node type="laser_scan_assembler" pkg="laser_assembler"
+        name="thy_laser_assembler">
+    <remap from="scan" to="/base_link/base_scan"/>
+    <param name="max_scans" type="int" value="4" />
+    <param name="fixed_frame" type="string" value="/base_link" />
+</node>
+
+<!-- deshacemos el cambio para obtener un scan -->
+<node type="autoAssembler" pkg="dualLaser"
+        name="my_cloud_assembler">
+    <remap from="scan" to="/base_link/base_scan"/>
+    <remap from="globalScan" to="/base_link/global_scan"/>
+    <param name="fixed_frame" type="string" value="/base_link" />
+</node>
+
+
+
+</launch>
+
+
+
+
+
+
+

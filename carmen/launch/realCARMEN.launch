@@ -1,0 +1,18 @@
+<!-- 
+Objetivo:    Controlar a CARMEN en ROS
+Descripcion: Publicacion/recepcion de topics de CARMEN en ROS
+Estado:      Funcional. POSIBLE DESALINEAMIENTO DE LASERS!! REVISAR!!
+-->
+
+
+<launch>
+<!-- ***************  CARMEN  ********************************** -->  
+<node name="carmen" pkg="CARMEN" type="CARMENnode" respawn="true" output="screen">
+
+</node>
+
+<include file="/home/mfcarmona/ros/isis/CARMEN/launch/hokuyo/laserNodes.launch" />
+
+</launch>
+
+

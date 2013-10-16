@@ -1,0 +1,7 @@
+geometry_msgs/Point comand
+nav_msgs/Odometry robotPos
+nav_msgs/GridCells obstacles
+geometry_msgs/Pose2D target
+---
+Efficiency_m eta
+

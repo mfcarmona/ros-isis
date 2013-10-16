@@ -1,0 +1,10 @@
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+  <include file="./move_base.xml"/>
+  <node pkg="stage" type="stageros" name="stageros" args="/home/mfcarmona/ros/isis/CARMEN/launch/orig_navigation/willow-pr2-5cm.world" respawn="false" >
+    <param name="base_watchdog_timeout" value="0.2"/>
+  </node>
+  <include file="./slam_gmapping.xml"/>  
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/mfcarmona/ros/isis/CARMEN/launch/orig_navigation/single_robot.vcg" />
+</launch>

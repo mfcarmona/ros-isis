@@ -1,0 +1,24 @@
+<!--
+Objetivo:  Comprobar que el servicio de efficiencias calcula correctamente las efficiencias.
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:   FUNCIONA!!!!
+  	
+-->
+
+
+<launch>
+
+<!--  cliente de eficiencia  -->
+<node name="efficiency_client2" pkg="efficiency" output="screen" type="eff_subscriber2">
+      <remap from="obstacles" to="/costmap_node/costmap/obstacles" />
+      <remap from="target" to="/move_base_simple/goal" />
+      <remap from="pos" to="/odom" />
+      <remap from="command" to="cmd_vel" />
+      <remap from="efficiency" to="/efficiency_client2/efficiency" />
+      <param name="effic_mode" value="0" type="int"/>
+</node>
+
+
+
+</launch>

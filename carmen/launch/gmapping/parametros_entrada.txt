@@ -1,0 +1,8 @@
+/base_pose_ground_truth
+/base_scan
+/clock
+/cmd_vel
+/odom
+/rosout
+/rosout_agg
+/tf

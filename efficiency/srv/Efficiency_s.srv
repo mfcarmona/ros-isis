@@ -1,0 +1,7 @@
+geometry_msgs/Point comand
+nav_msgs/Odometry robotPos
+sensor_msgs/LaserScan currScan
+geometry_msgs/Pose2D target
+---
+Efficiency_m eta
+

@@ -1,0 +1,20 @@
+<!-- 
+
+Objetivo:    probar algoritmos amcl en CARMEN simulada
+Descripcion: Version basada en stageros para CASA
+Estado:      Costmap2DROS se queja de timeout ¿quizas tiene mal puesto los nombres de los topics? 
+
+-->
+
+<launch>
+
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/mfcarmona/ros/isis/CARMEN/bags/map.yaml"/> 
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/stage/stageCARMEN_separated.launch"/>  
+  
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/amcl_diff.launch" />
+
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/move_base.launch"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/mfcarmona/ros/isis/CARMEN/launch/navigation/stageCARMENSLAM.vcg" />
+</launch>

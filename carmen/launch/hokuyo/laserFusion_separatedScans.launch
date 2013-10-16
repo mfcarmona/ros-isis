@@ -1,0 +1,91 @@
+<!-- 
+
+Objetivo: fusionar los dos scans en uno solo
+Version con los topic scan divididos
+
+
+
+-->
+
+<launch>
+
+
+
+<!-- ***************  FRONT LASER  ********************************** -->
+  
+<!-- ...............  nodo hokuyo  .................................. -->
+<node name="hokuyo_front" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+    <!-- The frame in which laser scans will be returned. This frame should be at the optical center of the laser, with the x-axis along the zero degree ray, and the y-axis along the 90 degree ray. -->
+    <param name="frame_id" type="string" value="base_laser_front"/> 
+    <remap from="scan" to="scan_front" />
+    <param name="calibrate_time" type="bool" value="true"/> 
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/ttyS1"/>   
+    <param name="intensity" type="bool" value="false"/>
+</node>
+
+<!-- ...............  posicion del laser  .................................. -->
+<!--  
+Publish a static coordinate transform to tf using an x/y/z offset and yaw/pitch/roll. 
+The period, in milliseconds, specifies how often to send a transform. 100ms (10hz) is a good value.  
+Args are:    x y z qx qy qz qw frame_id child_frame_id  period_in_ms
+-->  
+<node name="front_laser_broadcaster" 	pkg="tf" type="static_transform_publisher" 
+	args="0.3 0 0.2 3.14 0 0 1   /base_link  /base_laser_front 100" />
+
+<!-- ...............  filtrado de puntos del laser  .................................. -->
+<node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <rosparam command="load" file="/home/mfcarmona/ros/isis/CARMEN/hokuyos_config.yaml" />
+    <remap from="scan_front" to="filtered_scan_front" />
+</node>
+
+
+
+
+
+
+
+
+<!-- ***************  REAR LASER  ********************************** -->
+  
+<!-- ...............  nodo hokuyo  .................................. -->
+<node name="hokuyo_front" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+    <!-- The frame in which laser scans will be returned. This frame should be at the optical center of the laser, with the x-axis along the zero degree ray, and the y-axis along the 90 degree ray. -->
+    <param name="frame_id" type="string" value="base_laser_rear"/> 
+    <remap from="scan" to="scan_rear" />
+    <param name="calibrate_time" type="bool" value="true"/> 
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/ttyS2"/>   
+    <param name="intensity" type="bool" value="false"/>
+</node>
+
+<!-- ...............  posicion del laser  .................................. -->
+<!--  
+Publish a static coordinate transform to tf using an x/y/z offset and yaw/pitch/roll. 
+The period, in milliseconds, specifies how often to send a transform. 100ms (10hz) is a good value.  
+Args are:    x y z qx qy qz qw frame_id child_frame_id  period_in_ms
+-->  
+<node name="rear_laser_broadcaster" 	pkg="tf" type="static_transform_publisher" 
+	args="0.3 0 0.2 3.14 0 0 1   /base_link  /base_laser_rear 100" />
+
+<!-- ...............  filtrado de puntos del laser  .................................. -->
+<node name="laser_filter" pkg="laser_filters" type="scan_to_scan_filter_chain">
+    <rosparam command="load" file="/home/mfcarmona/ros/isis/CARMEN/hokuyos_config.yaml" />
+    <remap from="scan_rear" to="filtered_scan_rear" />
+</node>
+
+
+
+
+</launch>
+
+<!-- Cuando se llama, no une nada ...
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="laser_bender">
+    <remap from="scan" to="double_scan"/>
+    <param name="max_scans" type="int" value="50" />
+    <param name="fixed_frame" type="string" value="base_link" />
+  </node>
+
+/>
+
+</launch>

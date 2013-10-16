@@ -1,0 +1,32 @@
+<!--
+
+Objetivo:    Controlar remotamente CARMEN con joystick
+Descripcion: el joystick se mapea directamente a velocidades. publicando velocidades
+Estado:      Funciona tanto para la real como la stage.
+	     Reduciendo las velocidades maximas por seguridad
+
+-->
+
+
+
+
+<launch>
+
+
+ <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="a_teleop_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.12" />
+  </node>
+
+ <!-- Axes -->
+  <param name="trans_vel_axis" value="1" type="int"/>
+  <param name="rot_vel_axis" value="0" type="int"/>
+  <param name="trans_scale" value="0.6" type="double"/>
+  <param name="rot_scale" value="0.1" type="double"/>
+  <param name="auto_send" value="true" type="boolean"/>
+
+  <node pkg="control_joy" type="teleop_joy" name="a_teleopCARMEN"/>
+
+</launch>

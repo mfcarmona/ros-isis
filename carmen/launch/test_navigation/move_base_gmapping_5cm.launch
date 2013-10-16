@@ -1,0 +1,19 @@
+<!--
+
+estado: slam no consigue registrar nuevos scans: !parametros
+
+
+-->
+
+
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+  <include file="./move_base.xml"/>
+
+<include file="/home/mfcarmona/ros/isis/CARMEN/launch/stage/stageCARMEN.launch" />
+
+<include file="./slam_gmapping.xml"/>  
+
+
+</launch>

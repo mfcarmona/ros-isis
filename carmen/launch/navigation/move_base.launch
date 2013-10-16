@@ -1,0 +1,24 @@
+<!-- 
+
+Objetivo:    Que carmen navegue en SLAM.
+Descripcion: Siguiendo el tutorial http://www.ros.org/wiki/navigation/Tutorials/RobotSetup
+             Haremos que CARMEN navegue autonomamente con SLAM (dando paseitos al usuario, vamos)
+Estado:     
+	     Se lanzara junto al realCARMEN.launch
+	     INCOMPLETO!!!
+
+	     Como parte del proceso, hemos hecho un mapa del entorno simulado siguiendo el tutorial
+			http://www.ros.org/wiki/slam_gmapping/Tutorials/MappingFromLoggedData
+		Ha salido el map.pgm que se ve en la carpeta de stage, hay que pulirlo (demasiado grande)
+
+ -->
+
+<launch>
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base_node" output="screen">
+    <rosparam file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/local_costmap_params.yaml" command="load" />
+    <rosparam file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/global_costmap_params.yaml" command="load" />
+    <rosparam file="/home/mfcarmona/ros/isis/CARMEN/launch/navigation/base_local_planner_params.yaml" command="load" />
+  </node>
+</launch>

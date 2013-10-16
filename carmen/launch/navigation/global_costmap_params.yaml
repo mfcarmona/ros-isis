@@ -1,0 +1,14 @@
+global_costmap:
+   # coordinate frame the costmap should run
+  global_frame: odom
+
+  #coordinate frame the costmap should reference for the base of the robot
+  robot_base_frame: base_link
+
+  # frequency, in Hz, at which the costmap will run its update loop. 
+  update_frequency: 5.0
+
+  # costmap should initialize itself based on a map served by the map_server
+  static_map: true
+
+# This minimum configuration should get things up and running, but for more details on the configuration options available for the costmap please see the http://www.ros.org/wiki/costmap_2d

@@ -1,0 +1,88 @@
+<!--
+Objetivo:  Comprobar que el servicio de control compartido funciona correctamente
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:  CORREGIR: SIN JOY NO HAY MOVIMIENTO
+         COMPROBAR: CONEXON DE cmd_vels
+-->
+
+
+
+
+<launch>
+  <master auto="start"/>
+  <param name="/use_sim_time" value="true"/>
+
+<!-- proporciona el mapa estatico usado por amcl para la localizacion -->
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/mfcarmona/ros/isis/CARMEN/launch/collaborative_control/willow-full-0.025.pgm 0.025" />
+
+<!-- localizacion en el mapa -->
+  <include file="./amcl_node.xml"/>  
+
+<!-- fuentes de datos:******************************************************************* -->
+
+
+
+
+<!-- scans: /base_link/global_scan_0
+	    /base_link/global_scan_1
+     pos : /odom  
+-->
+  <include file="/home/mfcarmona/ros/isis/CARMEN/launch/collaborative_control/stageCARMEN_separated.launch"/>  
+
+
+  <!-- obstacles: costmap_node/costmap/obstacles -->
+  <!-- robot_command --> 
+  <include file="./move_base.xml"/>
+
+
+<!-- user_command --> 
+			 <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy" name="a_teleop_joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.3" />
+  </node>
+
+			 <!-- Axes -->
+  <param name="trans_vel_axis" value="1" type="int"/>
+  <param name="rot_vel_axis" value="0" type="int"/>
+  <param name="trans_scale" value="1" type="double"/>
+  <param name="rot_scale" value="1" type="double"/>
+  <param name="auto_send" value="false" type="boolean"/>
+
+  <node pkg="control_joy" type="carmen_teleop_joy" name="a_teleopCARMEN">
+   <remap from="cmd_vel" to="user_command" />
+  </node>
+
+<!-- target:  command -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/mfcarmona/ros/isis/CARMEN/launch/collaborative_control/single_robot.vcg" />
+
+
+<!--************************************************************************************* -->
+
+<!-- servidor de eficiencia  -->
+<include file="/home/mfcarmona/ros/isis/efficiency/launch/efficiency_server2.launch"/>  
+
+
+<!-- servidor de control compartido   -->
+<include file="/home/mfcarmona/ros/isis/CARMEN/launch/collaborative_control/cc_server.launch"/>  
+
+
+<!--  clientes de control compartido   -->
+<include file="/home/mfcarmona/ros/isis/CARMEN/launch/collaborative_control/cc_subscriber.launch"/> 
+
+
+
+</launch>
+
+
+<!--
+
+los obstaculos los leiamos antes de aqui, ESTO LO PROPORCIONA ahora EL MOVE_BASE
+
+  <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+    <rosparam file="/home/mfcarmona/ros/isis/costmap2d/launch/costmap2d_params.yaml" command="load" ns="costmap" />
+  </node>
+-->
+

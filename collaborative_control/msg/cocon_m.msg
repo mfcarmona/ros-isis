@@ -1,0 +1,11 @@
+nav_msgs/Odometry robotPos
+nav_msgs/GridCells obstacles
+geometry_msgs/Pose2D target
+float32 weigthA
+geometry_msgs/Point comandA
+efficiency/Efficiency_m etaA
+float32 weigthB
+geometry_msgs/Point comandB
+efficiency/Efficiency_m etaB
+geometry_msgs/Point comandC
+efficiency/Efficiency_m etaC

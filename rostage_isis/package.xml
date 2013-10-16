@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<package>
+  <name>rostage_isis</name>
+  <version>0.0.0</version>
+  <description>
+	  
+<p>
+This package contains the Stage robot simulator, from the <a href="http://playerstage.sf.net">Player Project</a>.
+This package does not modify Stage in any way,
+but uses a pre-3.0, unreleased version of Stage.  This package will
+eventually be updated to a newer version of Stage.
+</p>
+<p>
+This package also provides stageros, a ROS node that uses Stage.
+Modified for Dual laser Simulator
+</p>
+	  
+</description>
+<author>Richard Vaughan, with contributions from many others. See web page for a full credits list.</author>
+  <maintainer email="mfcarmona@uma.es">Manuel</maintainer>
+  <license>GPL</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>rosgraph_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>rosgraph_msgs</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>tf</run_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+   <cpp cflags="`PKG_CONFIG_PATH=${prefix}/lib/pkgconfig:$PKG_CONFIG_PATH pkg-config --cflags stage`" 
+         lflags="`PKG_CONFIG_PATH=${prefix}/lib/pkgconfig:$PKG_CONFIG_PATH pkg-config --libs stage`"/> 
+
+  </export>
+</package>

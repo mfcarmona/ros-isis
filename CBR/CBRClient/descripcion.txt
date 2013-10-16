@@ -1,0 +1,14 @@
+CBRClient
+---------
+- cbr_clientC: Cliente que se subscribe al CBR de java y obtiene los prototipos. Mantiene un socket para reenviar los datos obtenidos.
+
+- cbrClientDLA: Módulo DLA que utiliza cbr_clientC como libreria para enviar al CBR los datos de laser y objetivos. Recibe el caso que cbr_clientC obtiene del servidor.
+
+Necesita que el servidor DLA y CBR estén lanzados previamente
+El módulo lee del dla los siguiente parámetros al inicio: NUM_SONARS, HOST_CBR, PORT_CBR, NUMCBRINPUTS
+Lee de las conexiones: state, track
+Crea y escribe en la conexión: alt_command
+Espera al buzón: init
+Envía datos a navigation cada WAIT_TIME (linea 31) puesto a 50 milisegundos
+Sustituye la librería cbr_clientC por la que te añado en el zip (en verdad solo cambia libCbrClient.c)
+

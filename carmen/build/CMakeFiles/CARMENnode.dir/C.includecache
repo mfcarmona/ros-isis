@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mfcarmona/ros/isis/CARMEN/src/modBusFuncs.c
+modBusFuncs.h
+/home/mfcarmona/ros/isis/CARMEN/src/modBusFuncs.h
+serialPortFuncs.h
+/home/mfcarmona/ros/isis/CARMEN/src/serialPortFuncs.h
+
+/home/mfcarmona/ros/isis/CARMEN/src/serialPortFuncs.c
+serialPortFuncs.h
+/home/mfcarmona/ros/isis/CARMEN/src/serialPortFuncs.h
+
+/home/mfcarmona/ros/isis/CARMEN/src/serialPortFuncs.h
+unistd.h
+-
+errno.h
+-
+fcntl.h
+-
+termio.h
+-
+string.h
+-
+stdio.h
+-
+unistd.h
+-
+

@@ -1,0 +1,9 @@
+float32 weigthA
+geometry_msgs/Point comandA
+efficiency/Efficiency_m etaA
+float32 weigthB
+geometry_msgs/Point comandB
+efficiency/Efficiency_m etaB
+---
+geometry_msgs/Point comandC
+

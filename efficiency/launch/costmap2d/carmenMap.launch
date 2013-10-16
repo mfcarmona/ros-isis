@@ -1,0 +1,49 @@
+<!--
+Objetivo:  Otra opcion para fusionar datos de los lasers es a través del costmap.
+           Vamos a comprobar cómo incluye los datos de los dos lasers.
+
+Estado:    Funciona
+  	
+-->
+
+
+<launch>
+  <master auto="start"/>
+
+  <!--
+  On a real robot, you'd want to set the "use_sim_time" parameter to false, or just not set it.
+  -->
+  <param name="/use_sim_time" value="true"/>
+
+<!-- fuentes de datos:******************************************************************* -->
+
+<!-- scans: /base_link/global_scan_0
+	    /base_link/global_scan_1
+     pos : /odom  
+-->
+  <include file="$(find carmen)/launch/stage/stageCARMEN_separated.launch"/>  
+
+<!-- command: command -->
+  <include file="$(find control_joy)/launch/test.launch"/>
+
+
+  <!-- Publishes the voxel grid to rviz for display -->
+  <node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
+    <remap from="voxel_grid" to="costmap/voxel_grid"/>
+  </node>
+
+<!-- target:  command -->
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find efficiency)/launch/costmap2d/costmapCARMEN.rviz" >
+
+</node>
+
+
+<!--************************************************************************************* -->
+
+  <!-- Run the costmap node -->
+  <node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+    <rosparam file="$(find efficiency)/launch/costmap2d/costmap2d_params.yaml" command="load" ns="costmap" />
+  </node>
+
+
+</launch>

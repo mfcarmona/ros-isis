@@ -1,0 +1,23 @@
+<!--
+Objetivo:  Comprobar que combina los comandos A y B
+
+
+Estado:    en desarrollo
+  	
+-->
+
+
+<launch>
+
+<!-- servidor de control compartido  -->
+<node name="cc_server" pkg="collaborative_control"  output="screen"  type="collaborative_control_server" >
+
+<!-- pesos por defecto: si le hacen una peticion con pesos a 0, usa los suyos ... TODO   -->
+  <!-- param name="default_weight_A" value="0.5" type="double"/ -->
+  <!-- param name="default_weight_B" value="0.5" type="double"/ -->
+
+</node>
+
+
+
+</launch>

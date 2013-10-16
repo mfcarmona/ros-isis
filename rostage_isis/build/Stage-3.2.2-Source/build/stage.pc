@@ -1,0 +1,8 @@
+prefix=/home/mfcarmona/catkin_ws/src/rostage_isis
+
+Name: stage
+Description: Stage robot simulation program, C++ library and Player plugin - part of the Player/Stage Project
+Version: 3.2.2
+Requires: 
+Libs: -L${prefix}/lib -lstage -L/usr/lib/x86_64-linux-gnu -Wl,-Bsymbolic-functions -Wl,-z,relro -lfltk_images -lfltk_gl -lfltk
+Cflags: -I${prefix}/include/Stage-3.2  -I/usr/include/freetype2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security   -D_THREAD_SAFE -D_REENTRANT 

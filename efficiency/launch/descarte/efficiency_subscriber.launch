@@ -1,0 +1,26 @@
+<!--
+Objetivo:  Comprobar que el servicio de efficiencias calcula correctamente las efficiencias.
+           Comprobar que el nodo que captura comando, scan, posicion y target tambien funciona correctamente
+
+Estado:    Buscando porque no se suscribe/publica
+  	
+-->
+
+
+<launch>
+
+<!--  cliente de eficiencia  -->
+<node name="efficiency_client" pkg="efficiency" output="screen" type="eff_subscriber">
+      <!-- remap from="scan" to="/base_link/global_scan" /  -->
+      <remap from="scan" to="/base_link/base_scan_0_raw" />
+      <remap from="target" to="/move_base_simple/goal" />
+      <remap from="pos" to="/odom" />
+      <remap from="command" to="cmd_vel" />
+
+
+
+</node>
+
+
+
+</launch>
